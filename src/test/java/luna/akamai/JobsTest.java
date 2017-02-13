@@ -15,19 +15,21 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import junit.framework.*;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.openqa.selenium.By.name;
-
 public class JobsTest
 {
+    Logger logger = LoggerFactory.getLogger(JobsTest.class);
 
     @Test
     public void test001_Jobs_test_search() throws Exception {
+
         WebDriver driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get("https://akamaijobs.referrals.selectminds.com");
@@ -59,10 +61,10 @@ public class JobsTest
 
         //
         List<WebElement> jobs = driver.findElements(By.xpath("//div[@id='job_results_list_hldr']//a[@class='job_link font_bold']"));
-        System.out.println("Total jobs " + jobs.size());
+        logger.info("Total jobs " + jobs.size());
 
         // Now using Iterator we will iterate all elements
-        Integer count = 0;
+        int count = 0;
         Iterator<WebElement> iter = jobs.iterator();
         while (iter.hasNext()) {
 
@@ -74,8 +76,8 @@ public class JobsTest
             if (label.contains("Software Development Engineer in Test"))
             // print the text
             {
-                System.out.println("Row label is " + label);
-                count = count + 1;
+                logger.info("Row label is " + label);
+                count ++;
             }
         }
         System.out.println("Nubmer of 'Software Development Engineer in Test' jobs is: " + count);
