@@ -85,6 +85,9 @@ public class JobsTest
         WebElement luna = driver.findElement(By.linkText("Software Development Engineer in Test - LUNA"));
         luna.click();
 
+        WebElement lunaDate2 = driver.findElement(By.xpath("//div[@class='info_box_fields']//dd[@class='job_post_date']//span[@class='field_value']"));
+        lunaDate2.getText();
+
             driver.close();
             driver.quit();
 
