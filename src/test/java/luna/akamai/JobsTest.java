@@ -16,6 +16,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import junit.framework.*;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -25,8 +27,7 @@ public class JobsTest
 {
 
     @Test
-    public void test001_Jobs_test_search() throws Exception
-    {
+    public void test001_Jobs_test_search() throws Exception {
         WebDriver driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get("https://akamaijobs.referrals.selectminds.com");
@@ -42,7 +43,7 @@ public class JobsTest
 
         List<WebElement> options = locations5.findElements(By.tagName("li"));
 
-        for(WebElement option: options) {
+        for (WebElement option : options) {
 
             if (option.getText().equalsIgnoreCase("Krakow, Poland")) {
 
@@ -57,9 +58,34 @@ public class JobsTest
         totalResults.getText();
 
         //
+        List<WebElement> jobs = driver.findElements(By.xpath("//div[@id='job_results_list_hldr']//a[@class='job_link font_bold']"));
+        System.out.println("Total jobs " + jobs.size());
 
-        driver.close();
-        driver.quit();
+        // Now using Iterator we will iterate all elements
+        Integer count = 0;
+        Iterator<WebElement> iter = jobs.iterator();
+        while (iter.hasNext()) {
+
+            // Iterate one by one
+            WebElement item = iter.next();
+
+            // get the text
+            String label = item.getText();
+            if (label.contains("Software Development Engineer in Test"))
+            // print the text
+            {
+                System.out.println("Row label is " + label);
+                count = count + 1;
+            }
+        }
+        System.out.println("Nubmer of 'Software Development Engineer in Test' jobs is: " + count);
+
+        WebElement luna = driver.findElement(By.linkText("Software Development Engineer in Test - LUNA"));
+        luna.click();
+
+            driver.close();
+            driver.quit();
+
 
     }
 }
