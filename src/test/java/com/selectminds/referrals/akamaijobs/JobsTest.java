@@ -1,48 +1,95 @@
 package com.selectminds.referrals.akamaijobs;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class JobsTest extends JobsBasePage
+
+
+
+public class JobsTest extends BaseTest
 {
     Logger logger = LoggerFactory.getLogger(JobsTest.class);
+    JobsEditPage jobsEditPage = new JobsEditPage(driver);
+
+
+    @BeforeClass
+    public void initPages()
+    {
+        JobsEditPage jobsEditPage = new JobsEditPage(driver);
+//        driver.get("https://akamaijobs.referrals.selectminds.com");
+    }
 
     @Test
-    public void test001_Jobs_test_search() throws Exception {
+    public void test001_Jobs_test_search() throws Exception
+    {
 
-        WebDriver driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get("https://akamaijobs.referrals.selectminds.com");
 
-        JobsEditPage.searchField.sendKeys("test");
+        jobsEditPage.searchField.sendKeys("test");
 
-        JobsEditPage.locationField.click();
+        jobsEditPage.locationField.click();
 
         selectLocation("Krakow, Poland");
 
-        JobsEditPage.searchButton.click();
+        jobsEditPage.searchButton.click();
 
-        JobsEditPage.totalResults.getText();
+        jobsEditPage.totalResults.getText();
 
-        //??
-        List<WebElement> jobs = driver.findElements(By.xpath("//div[@id='job_results_list_hldr']//a[@class='job_link font_bold']"));
-        logger.info("Total jobs " + jobs.size());
+        logger.info("Total jobs " + jobsEditPage.jobs.size());
 
         String jobName = "Software Development Engineer in Test";
         System.out.println("Nubmer of " + jobName + " jobs is: " + countJobs(jobName));
 
         selectLink("Software Development Engineer in Test - LUNA");
 
-        JobsEditPage.jobPostDate.getText();
+        jobsEditPage.jobPostDate.getText();
+
+        //assertEquals("", "", "");
+
+    }
+    public void selectLocation (String location) throws Exception
+    {
+        //JobsEditPage jobsEditPage = new JobsEditPage(driver);
+        for (WebElement option : jobsEditPage.options)
+        {
+            if (option.getText().equalsIgnoreCase(location))
+            {
+                option.click();
+                break;
+            }
+        }
+    }
+
+    public int countJobs (String name) throws Exception
+    {
+       // JobsEditPage jobsEditPage = new JobsEditPage(driver);
+        int count = 0;
+        for (WebElement item : jobsEditPage.jobs)
+        {
+            String label = item.getText();
+            if (label.contains(name)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static void selectLink(String linkName) throws Exception
+    {
+        WebElement link = driver.findElement(By.linkText(linkName));
+        link.click();
     }
 }

@@ -1,4 +1,4 @@
-package com;
+package com.selectminds.referrals.akamaijobs;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;

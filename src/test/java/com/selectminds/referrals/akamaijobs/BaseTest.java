@@ -1,4 +1,4 @@
-package com;
+package com.selectminds.referrals.akamaijobs;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

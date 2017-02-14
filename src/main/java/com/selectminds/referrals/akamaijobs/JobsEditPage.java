@@ -1,34 +1,43 @@
 package com.selectminds.referrals.akamaijobs;
 
-import com.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
 public class JobsEditPage extends PageObject
 {
-    public static WebElement searchField = driver.findElement(By.id("keyword"));
+    @FindBy(id="keyword")
+    public WebElement searchField;
 
-    public static WebElement locationField = driver.findElement(By.id("loc_placeholder"));
+    @FindBy(id="loc_placeholder")
+    public WebElement locationField;
 
-    public static WebElement locationHolder = driver.findElement(By.id("jLocInputHldr"));
-    public static WebElement locationsResults = locationHolder.findElement(By.className("chzn-results"));
+    @FindBy(id="jLocInputHldr")
+    public WebElement locationHolder;
 
-// should I put this list on edit page, or on the base page????
-    List<WebElement> options = JobsEditPage.locationsResults.findElements(By.tagName("li"));
+    @FindBy(className = "chzn-results")
+    public WebElement locationsResults;
 
-    public static WebElement searchButton = driver.findElement(By.className("search_btn_hldr"));
+    @FindBy(tagName = "li")
+    public List<WebElement> options;
 
-    public static WebElement totalResults = driver.findElement(By.className("total_results"));
+    @FindBy(className = "search_btn_hldr")
+    public WebElement searchButton;
 
-//  Edit or base page?
-    List<WebElement> jobs = driver.findElements(By.xpath("//div[@id='job_results_list_hldr']//a[@class='job_link font_bold']"));
+    @FindBy(className = "total_results")
+    public WebElement totalResults;
 
-    public static WebElement jobPostDate = driver.findElement(By.xpath("//div[@class='info_box_fields']//dd[@class='job_post_date']//span[@class='field_value']"));
+    @FindBy(xpath = "//div[@id='job_results_list_hldr']//a[@class='job_link font_bold']")
+    public List<WebElement> jobs;
 
-    public JobsEditPage(WebDriver driver) {
+    @FindBy(xpath = "//div[@class='info_box_fields']//dd[@class='job_post_date']//span[@class='field_value']")
+    public WebElement jobPostDate;
+
+    public JobsEditPage(WebDriver driver)
+    {
         super(driver);
     }
 }
