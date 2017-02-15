@@ -16,21 +16,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
-
-
 public class JobsTest extends BaseTest
 {
     Logger logger = LoggerFactory.getLogger(JobsTest.class);
     JobsEditPage jobsEditPage = new JobsEditPage(driver);
-
-
-    @BeforeClass
-    public void initPages()
-    {
-        JobsEditPage jobsEditPage = new JobsEditPage(driver);
-//        driver.get("https://akamaijobs.referrals.selectminds.com");
-    }
 
     @Test
     public void test001_Jobs_test_search() throws Exception
@@ -57,12 +46,9 @@ public class JobsTest extends BaseTest
 
         jobsEditPage.jobPostDate.getText();
 
-        //assertEquals("", "", "");
-
     }
     public void selectLocation (String location) throws Exception
     {
-        //JobsEditPage jobsEditPage = new JobsEditPage(driver);
         for (WebElement option : jobsEditPage.options)
         {
             if (option.getText().equalsIgnoreCase(location))
@@ -75,7 +61,6 @@ public class JobsTest extends BaseTest
 
     public int countJobs (String name) throws Exception
     {
-       // JobsEditPage jobsEditPage = new JobsEditPage(driver);
         int count = 0;
         for (WebElement item : jobsEditPage.jobs)
         {
