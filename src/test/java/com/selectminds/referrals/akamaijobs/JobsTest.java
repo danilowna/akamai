@@ -24,7 +24,7 @@ public class JobsTest extends BaseTest
         String jobName1 = "Software Development Engineer in Test";
         String jobName2 = "Software Development Engineer in Test - LUNA";
         String lunaJobPostDate = "Jan 16, 2017";
-        String jobNumber = "22";
+        String jobNumber = "23";
         int lunaJobNumber = 4;
 
         logger.info("Go to akamaijobs.referrals.selectminds.com ");
