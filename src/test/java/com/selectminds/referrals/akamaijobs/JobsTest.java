@@ -9,14 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import static org.junit.Assert.*;
 
 public class JobsTest extends BaseTest
 {
     Logger logger = LoggerFactory.getLogger(JobsTest.class);
     JobsEditPage jobsEditPage = new JobsEditPage(driver);
-
 
     @Test
     public void test001_Jobs_test_search() throws Exception
@@ -27,7 +25,7 @@ public class JobsTest extends BaseTest
         String jobNumber = "23";
         int lunaJobNumber = 4;
 
-        logger.info("Go to akamaijobs.referrals.selectminds.com ");
+        logger.info("Go to akamaijobs.referrals.selectminds.com");
         {
             driver.get("https://akamaijobs.referrals.selectminds.com");
         }
@@ -41,7 +39,7 @@ public class JobsTest extends BaseTest
             selectLocation("Krakow, Poland");
         }
 
-        logger.info("Click 'Search'.");
+        logger.info("Click 'Search'");
         {
             assertTrue("Search Button is not present", jobsEditPage.searchButton.isDisplayed());
             jobsEditPage.searchButton.click();
@@ -54,16 +52,17 @@ public class JobsTest extends BaseTest
             Assert.assertEquals("Number of jobs does not match:", jobNumber, jobsEditPage.totalResults.getText());
         }
 
-        logger.info("Validate number of 'Software Development Engineer in Test' results");
+        logger.info("Validate number of 'Software Development Engineer in Test' job posts");
         {
-            Assert.assertEquals("Number of LUNA jobs does not match:", lunaJobNumber, countJobs(jobName1));
+            Assert.assertEquals("Number of 'Software Development Engineer in Test' jobs does not match:",
+                    lunaJobNumber, countJobs(jobName1));
         }
 
         logger.info("Validate creation date of selected job");
         {
             selectLink(jobName2);
             assertTrue("Post date is not present", jobsEditPage.jobPostDate.isDisplayed());
-            Assert.assertEquals("Selected job date does not equal",lunaJobPostDate,jobsEditPage.jobPostDate.getText());
+            Assert.assertEquals("Selected job date does not equal:",lunaJobPostDate,jobsEditPage.jobPostDate.getText());
         }
     }
 

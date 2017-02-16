@@ -14,12 +14,6 @@ public class JobsEditPage extends PageObject
     @FindBy(id="loc_placeholder")
     public WebElement locationField;
 
-    @FindBy(id="jLocInputHldr")
-    public WebElement locationHolder;
-
-    @FindBy(className = "chzn-results")
-    public WebElement locationsResults;
-
     @FindBy(tagName = "li")
     public List<WebElement> options;
 
